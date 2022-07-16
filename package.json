@@ -1,0 +1,14 @@
+{
+  "name": "cosmos-presentation",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "serve slides/",
+    "help": "serve --help"
+  },
+  "dependencies": {
+    "serve": "^14.0.1"
+  }
+}
