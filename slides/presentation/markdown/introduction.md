@@ -1,20 +1,26 @@
-# Introduction
+<!-- .slide: data-background-color="#8D3AED" -->
+
+# Cosmos
+
+---
+
+<!-- .slide: data-background-color="#8D3AED" -->
+
+## Introduction
 
 ---
 
 ## Team members
 
 - Alejandro
-- Dadepo
-- Sofiane
+
 - Ankan
+
+- Dadepo
+
 - Francisco
 
----
-
-## Project
-
-Cosmos Network
+- Sofiane
 
 ---
 
