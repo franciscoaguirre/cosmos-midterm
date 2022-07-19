@@ -63,3 +63,27 @@ Source: https://docs.cosmos.network/main/intro/sdk-app-architecture.html
 Commit signals the application to persist application state. It takes no parameters
 
 Source: https://docs.tendermint.com/master/spec/abci/abci.html#commit
+
+---
+
+### Core element of the application stack
+
+<pre>
+                ^  +-------------------------------+  ^
+                |  |                               |  |   Built with Cosmos SDK
+                |  |  State-machine = Application  |  |
+                |  |                               |  v
+                |  +-------------------------------+
+                |  |                               |  ^
+Blockchain node |  |           Consensus           |  |
+                |  |                               |  |
+                |  +-------------------------------+  |   Tendermint Core
+                |  |                               |  |
+                |  |           Networking          |  |
+                |  |                               |  |
+                v  +-------------------------------+  v
+
+</pre>
+
+- State machine
+- Custom business logic
