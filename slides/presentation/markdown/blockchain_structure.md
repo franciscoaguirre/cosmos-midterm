@@ -26,13 +26,15 @@
 > BeginBlock, [DeliverTx], EndBlock, Commit
 > where one DeliverTx is called for each transaction in the block.
 > The result is an updated application state
-[Source: https://docs.tendermint.com/master/spec/abci/abci.html#block-execution]
+[Source](https://docs.tendermint.com/master/spec/abci/abci.html#block-execution)
 
 - The main messages that are used in state transition are:
   - InitChain
   - DeliverTx
   - EndBlock
   - Commit
+
+
 ---
 
 ## InitChain and EndBlock
@@ -41,10 +43,10 @@
 
 > The application may set the validator set during InitChain,
 > and may update it during EndBlock
-> [source: https://docs.tendermint.com/master/spec/abci/apps.html#updating-the-validator-set]
+> [source](https://docs.tendermint.com/master/spec/abci/apps.html#updating-the-validator-set)
 
 > Each abci end block call, the operations to update queues and validator set changes are specified to execute
-> [source: https://docs.cosmos.network/v0.45/modules/staking/05_end_block.html#end-block]
+> [source](https://docs.cosmos.network/v0.45/modules/staking/05_end_block.html#end-block)
 
 ---
 
@@ -54,7 +56,7 @@ When a valid block is received by Tendermint Core, each transaction in the block
 is passed to the application via DeliverTx in order to be processed.
 It is during this stage that the state transitions occur.
 
-Source: https://docs.cosmos.network/main/intro/sdk-app-architecture.html
+[Source](https://docs.cosmos.network/main/intro/sdk-app-architecture.html)
 
 ---
 
@@ -62,7 +64,7 @@ Source: https://docs.cosmos.network/main/intro/sdk-app-architecture.html
 
 Commit signals the application to persist application state. It takes no parameters
 
-Source: https://docs.tendermint.com/master/spec/abci/abci.html#commit
+[Source](https://docs.tendermint.com/master/spec/abci/abci.html#commit)
 
 ---
 
@@ -88,6 +90,8 @@ Blockchain node |  |           Consensus           |  |
 - State machine
 - Custom business logic
 
+---
+
 ## Anatomy of a block
 
 - Header
@@ -102,4 +106,31 @@ Blockchain node |  |           Consensus           |  |
   - Includes one vote for every validator
   - The sum of the voting power of the validators that voted must be greater than 2/3 of the total voting power of the complete validator set
 
-Source: https://github.com/tendermint/tendermint/blob/master/spec/core/data_structures.md
+[Source](https://github.com/tendermint/tendermint/blob/master/spec/core/data_structures.md)
+
+---
+
+## Consensus algorithm
+
+- Consensus algorithm used is Tendermint BFT
+- A variation of Practical Byzantine Fault Tolerance
+- Introduced for partial asynchronous networks
+
+---
+
+## Overview of the Tendermint BFT
+- The tendermint BFT algorithm is multi-stage. It consists of the following steps:
+- A validator within a validator set is selected at random to build the next block
+- **This is the _Propose_ phase**
+- After building the next block the validator broadcasts it to the network
+- Every validator that sees the block votes on the validity of the block. They broadcast also broadcast their
+  votes to everyone else on the network. Every validator waits till it gets votes from 2/3 of the validator set
+- **The phase where validators wait for Prevotes is called _Prevote phase_**
+- Every validator that got a 2/3 of prevotes then prepares to precommit the block. They broadcast this to the rest of the network.
+  and wait till they get same Precommit from 2/3 of the validator sets.
+- **The phase where validators wait for Precommit is called _Precommit phase_**
+- Once a validator receives Precommit votes from 2/3 of the validator set, they commit the block and add it to their copy of the chain
+
+![img.png](img.png)
+
+[Source](https://docs.tendermint.com/master/introduction/what-is-tendermint.html#consensus-overview)
