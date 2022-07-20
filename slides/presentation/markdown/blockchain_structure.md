@@ -118,7 +118,7 @@ Blockchain node |  |           Consensus           |  |
 ---
 
 ## Overview of the Tendermint BFT
-- The tendermint BFT algorithm is multi-stage. It consists of the following steps:
+- The tendermint BFT algorithm is multi-phased. It consists of the following phases:
 - A validator within a validator set is selected at random to build the next block
 - **This is the _Propose_ phase**
 - After building the next block the validator broadcasts it to the network
