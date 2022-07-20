@@ -104,7 +104,6 @@ Blockchain node |  |           Consensus           |  |
   - This is used for slashing
 - LastCommit
   - Includes one vote for every validator
-  - The sum of the voting power of the validators that voted must be greater than 2/3 of the total voting power of the complete validator set
 
 [Source](https://github.com/tendermint/tendermint/blob/master/spec/core/data_structures.md)
 
