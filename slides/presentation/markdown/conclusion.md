@@ -4,12 +4,18 @@
 
 ---
 
-Summarize your findings by connecting the most important ideas together and answering these questions:
+## Overall
 
-- How do the cryptographic elements, the economic incentives and the blockchain parameters all contribute to the core goals of this blockchain?
+- 🏗 The Cosmos SDK provides a good foundation to build an application specific blockchain
 
-- Of the things that you identified you liked the _most_, what were the two top things you would highlight?
+- 🔑 The protocol is based on reliable cryptography
 
-- Of the things that you identified you liked the _least_, what were the two top things you would highlight?
+- 📉 Validators are incentivized to secure the network, but zones compete for this security
+
+- ❌ Validator voting system is flawed. Voters are under pressure to vote for a likely winner.
+
+---
+
+## Attack
 
 - Describe a way you would devise an attack on this system.
