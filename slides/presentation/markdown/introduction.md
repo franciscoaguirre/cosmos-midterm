@@ -2,7 +2,7 @@
 
 # Cosmos
 
-### _The Internet of Blockchains._
+### _The Internet of Blockchains_
 
 ---
 
