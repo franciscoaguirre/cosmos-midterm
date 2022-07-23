@@ -2,6 +2,8 @@
 
 # Cosmos
 
+### _The Internet of Blockchains._
+
 ---
 
 ## Team members
@@ -27,6 +29,7 @@
 - Cosmos provides a SDK to build your own application specific chain and connect it to the network.
 
 ---
+
 ## Cosmos Network
 
 - Hub and Zones Architecture
@@ -36,11 +39,13 @@
 - Hubs are designed blockchains to connect the Zones.
 
 ---
+
 ## Cosmos Network
 
 <img src="../../assets/img/0-Shared/hubs-and-zones.png" alt="Hub and Zones">
 
 ---
+
 ## Cosmos Hub
 
 - The first hub on the network is the Cosmos Hub.
@@ -48,6 +53,7 @@
 - It is a proof of stake blockchain whose native staking token is ATOM.
 
 - From now on, when we say Cosmos, what we mean is Cosmos Hub.
+
 ---
 
 ## Cosmos SDK
