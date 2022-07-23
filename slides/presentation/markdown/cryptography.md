@@ -4,22 +4,28 @@
 
 ---
 
-### Asymetric crytograpgy
+### Asymmetric cryptography
 
 Elliptic Curve Cryptography protocol is used in Cosmos SDK.
 
-They provide 3 digital key schemes for creating digital signatures:
+Cosmos SDK provides 3 digital signature algorithms for creating digital signatures:
 
-- secp256k1: for accounts
-- secp256r1: for accounts on apple/android devices.
+- secp256k1: use by accounts
+- secp256r1: use by accounts
   (for supporting signing algorithm on secure enclave in macOS/iOS/watchOS and Android Hardware-backed Keystore)
 - Ed25519: Only used for Consensus validation on Tendermint side
+
+We can see that user accounts and consensus validator accounts don't use the same digital signature algorithm.
 
 ---
 
 ### Signing
 
-- List all kind a transactions which can be signed on Cosmos
+Processes involving signing with private keys:
+
+- application transactions and common usage: token transfers, smart contract interactions, etc...
+- governance: submiting and voting for proposals.
+- consensus: proposing and voting for new blocks.
 
 ---
 
@@ -32,36 +38,44 @@ It is used everywhere a hash function is needed:
 - compute addresses from public keys.
 - Merkle tree hashing function.
 
-RIPEMD160 cryptographic hash function has been fully removed from all componenents of Cosmos/Tendermint.
+RIPEMD160 cryptographic hash function has been fully removed from all components of Cosmos/Tendermint.
 
 ---
 
 ### Symetric encryption
 
-_XSalsa20_ Symmetric Cipher is used to store on disk encrypted private keys.
-https://github.com/cosmos/cosmos-sdk/blob/main/docs/basics/accounts.md#keyring
+_XSalsa20_ Symmetric Cipher is used to store on disk encrypted private keys protected with a passphrase.
 
 ---
 
 ### Exotic primitives
 
-There are initiatives to support ([Zero Knowledge Validator](https://medium.com/zero-knowledge-validator/cosmos-privacy-zkp-showcase-recap-8ad8def58573)) and use ([Penumbra Blockchain](https://penumbra.zone)) ZKP in cosmos ecosystem for privacy.
+There are initiatives for supporting ([Zero Knowledge Validator](https://medium.com/zero-knowledge-validator/cosmos-privacy-zkp-showcase-recap-8ad8def58573)) and for using ([Penumbra Blockchain](https://penumbra.zone)) ZKP in cosmos ecosystem for privacy.
 
-Mostly they reach a high barrier as tools for ZK and privacy are missing, mainly due to the fact that the CosmosSDK is written in Go, and many of the zk related libraries are written in Rust and the zk community is primarily focused on building with that language.
-
-https://medium.com/zero-knowledge-validator/cosmos-privacy-zkp-showcase-recap-8ad8def58573
+But for Cosmos developers/builders (and Go developers in general) ZKP is a bleeding edge technology.
+As tools for ZK and privacy are missing, mainly due to the fact that the CosmosSDK is written in Go, and many of the ZK related libraries are written in Rust and the ZK community is primarily focused on building with that language.
 
 ---
 
-### Cryptography librairies used
+### Dependency on cryptography librairies I
 
-Cosmos SDK and Tendermint are written in Go.
-Go librairies are used for cryptography
+CosmosSDK and Tendermint are written in Go, so librairies used for cryptography are imported from various Go packages and projects.
 
-- secp256k1, as implemented in the [Cosmos SDK's crypto/keys/secp256k1 package](https://github.com/cosmos/cosmos-sdk/blob/v0.46.0-rc1/crypto/keys/secp256k1/secp256k1.go)
-- secp256r1, as implemented in the [Cosmos SDK's crypto/keys/secp256r1 package](https://github.com/cosmos/cosmos-sdk/blob/v0.46.0-rc1/crypto/keys/secp256r1/pubkey.go)
-- tm-ed25519, as implemented in the [Cosmos SDK crypto/keys/ed25519 package](https://github.com/cosmos/cosmos-sdk/blob/v0.46.0-rc1/crypto/keys/ed25519/ed25519.go) (opens new window). This scheme is supported only for the consensus validation.
-- SHA256 modules for core crypto modules in Go lang library
+- secp256k1: depends on the implementation of the [decred project](https://github.com/decred/dcrd/tree/master/dcrec/secp256k1). This is also the library used in [btcd](https://github.com/btcsuite/btcd)(a bitcoin node written in go).
+- secp256r1: depends on [Go core crypto package](https://pkg.go.dev/crypto/elliptic#P256)
+- ed25519: depends on [Go core crypto package](https://pkg.go.dev/crypto/ed25519)
+- SHA256: depends on [Go core crypto package](https://pkg.go.dev/crypto/sha256)
+- XSalsa20: depends on [secretbox](https://pkg.go.dev/golang.org/x/crypto/nacl/secretbox). It is also a Go core crypto package.
+
+---
+
+### Dependency on cryptography librairies II
+
+- Don’t Roll Your Own Crypto, particulary on a controversial elliptic curve.
+- Writing cryptography software isn’t like writing regular software. Crypto is Hard.
+- All the security of user accounts in Cosmos depend on a secp256k1 Go module written by the [decred project](https://github.com/decred/dcrd/tree/master/dcrec/secp256k1) from scratch (with their own maths).
+- Yes a module in a project, not a library!!!
+- Even the `go-ethereum`, which is one of the biggest project written in Go using secp256k1, and probably the more mature, preferred to wrap the [bitcoin secp256k1 C library](https://pkg.go.dev/github.com/ethereum/go-ethereum/crypto/secp256k1).
 
 ---
 
@@ -75,7 +89,19 @@ At the core of every Cosmos account, there is a seed, which takes the form of a 
 
 #### Hierarchical Deterministic Key Derivation
 
-Cosmos use `hard derivation` for deriving multiple cryptographic keypairs from a single secret following [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki), [BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki), [BIP43](https://github.com/bitcoin/bips/blob/master/bip-0043.mediawiki) and [BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) specifications and principally the [confio specifications](https://github.com/confio/cosmos-hd-key-derivation-spec) for HD key derivation standarization on the Cosmos ecosystem.
+Cosmos use hard derivation for deriving multiple cryptographic keypairs from a single secret following [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki), [BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki), [BIP43](https://github.com/bitcoin/bips/blob/master/bip-0043.mediawiki) and [BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) specifications and principally the [confio specifications](https://github.com/confio/cosmos-hd-key-derivation-spec) for HD key derivation standarization on the Cosmos ecosystem.
+
+An "HD path" is an instruction as to how to derive a keypair from a root secret. BIP44 specifies a schema for such paths as follows:
+
+`m / 44' / coin_type' / account' / change / address_index`
+
+The Cosmos Hub HD path is:
+
+`m / 44' / 118' / 0' / 0 / address_index`
+
+- 44 is the BIP44 purpose
+- 118 is the coin type for ATOM
+- address_index is used for multiple accounts of the same user.
 
 ---
 
@@ -100,7 +126,6 @@ Cosmos use `hard derivation` for deriving multiple cryptographic keypairs from a
                                  +---------+---------+
                                  |  Mnemonic (Seed)  |
                                  +-------------------+
-
 ```
 
 ---
@@ -109,7 +134,11 @@ Cosmos use `hard derivation` for deriving multiple cryptographic keypairs from a
 
 #### Addresses in Cosmos
 
----
+- Generally speaking an account is identified by an address which is just a sequence of bytes derived from a public key.
+- 3 kind of addresses:
+  - aze
+  - aze
+  - aze
 
 ### Data structures
 
