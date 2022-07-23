@@ -149,7 +149,9 @@ Transactions are meaningless to the Tendermint. It is only interpreted by the ap
 ## Overview of the Tendermint BFT
 
 - The tendermint BFT algorithm is multi-phased. It consists of the following phases:
-- A validator within a validator set is selected at random to build the next block
+- A validator within a validator set is selected using a deterministically algorithm to build the next block
+- The deterministc algorithm used is a weighted round-robin algorithm
+  - The frequency of being chosen is proportional to the voting power (i.e. amount of bonded ATOM) of the validator
 - **This is the _Propose_ phase**
 - After building the next block the validator broadcasts it to the network
 - Every validator that sees the block votes on the validity of the block. They broadcast also broadcast their
