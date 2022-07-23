@@ -98,7 +98,10 @@ ABCI - Application Blockchain Interface
 ## Anatomy of a block
 
 - Header
-  - Contains information used throughout consensus and other areas of the protocol
+  - Contains information used throughout consensus and other areas of the protocol, for example:
+    - Address of the validator that proposed the block
+    - MerkleRoot of the current validator set
+    - BlockID of the previous block
 - Data
   - Data contains a list of transactions
   - The contents of the transaction is unknown to Tendermint
@@ -106,6 +109,11 @@ ABCI - Application Blockchain Interface
   - Evidence contains a list of infractions committed by validators
   - This is used for slashing
   - No more than 1/10th of the maximum block size (ConsensusParams.Block.MaxBytes) of evidence with each block
+
+---
+
+## Anatomy of a block (cont'd)
+
 - LastCommit
   - A simple wrapper for a list of signatures
   - Represents the votes validators casted 
@@ -113,6 +121,13 @@ ABCI - Application Blockchain Interface
   - The number of votes in a commit is limited to 10000
 
 [Source](https://github.com/tendermint/tendermint/blob/master/spec/core/data_structures.md)
+
+---
+## Anatomy of a transaction
+
+Transactions are arbitrary byte arrays. 
+
+Transactions are meaningless to the Tendermint. It is only interpreted by the application 
 
 ---
 
@@ -140,6 +155,8 @@ ABCI - Application Blockchain Interface
 - **The phase where validators wait for Precommit is called _Precommit phase_**
 - Once a validator receives Precommit votes from 2/3 of the validator set, they commit the block and add it to their copy of the chain
 
-<img src="./img.png" />
+---
+
+<img src="https://docs.tendermint.com/master/assets/img/consensus_logic.e9f4ca6f.png" width="60%" />
 
 [Source](https://docs.tendermint.com/master/introduction/what-is-tendermint.html#consensus-overview)
