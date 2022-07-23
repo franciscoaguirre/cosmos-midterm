@@ -105,8 +105,12 @@ ABCI - Application Blockchain Interface
 - Evidence
   - Evidence contains a list of infractions committed by validators
   - This is used for slashing
+  - No more than 1/10th of the maximum block size (ConsensusParams.Block.MaxBytes) of evidence with each block
 - LastCommit
-  - Includes one vote for every validator
+  - A simple wrapper for a list of signatures
+  - Represents the votes validators casted 
+  - The commit in a block refers to the vote for previous block
+  - The number of votes in a commit is limited to 10000
 
 [Source](https://github.com/tendermint/tendermint/blob/master/spec/core/data_structures.md)
 
