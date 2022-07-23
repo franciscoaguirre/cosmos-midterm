@@ -19,6 +19,29 @@ We can see that user accounts and consensus validator accounts don't use the sam
 
 ---
 
+### Public key compressed format for secp256k1 & secp256r1 I
+
+secp256k1 elliptic curve with formula: `y^2 = x^3 + 7`.
+
+<img src="../../assets/img/0-Shared/secp256k1.png" style="width: 50%" alt="Hub and Zones" />
+
+---
+
+### Public key compressed format for secp256k1 & secp256r1 II
+
+A public key is just a point on the elliptic curve secp256k1.
+
+The `G point` is added to himself a secret number of times (the `private key`) to finally land on a point on the curve which is the `public key`.
+
+As an y-coordinate can be calculated easily from an x-coordinate following the formula `y^2 = x^3 + 7`, we can just keep the x-coordinate + a prefix to identify if the y-coordinate associated is the largest one or the smaller one.
+
+Cosmos follows best practice by compressing the public key:
+
+- `0x02` prefix concatenated to the x-coordinate if the y-coordinate associated is the largest one.
+- `0x03` prefix concatenated to the x-coordinate if the y-coordinate associated is the smaller one.
+
+---
+
 ### Signing
 
 Processes involving signing with private keys:
@@ -136,9 +159,9 @@ The Cosmos Hub HD path is:
 
 - Generally speaking an account is identified by an address which is just a sequence of bytes derived from a public key.
 - 3 kind of addresses:
-  - aze
-  - aze
-  - aze
+  - `AccAddress` identifies users
+  - `ValAddress` identifies validator operators
+  - `ConsAddress` identifies validator nodes that are participating in consensus. (Validator nodes are derived using the ed25519 curve.)
 
 ### Data structures
 
