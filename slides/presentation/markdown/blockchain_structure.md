@@ -28,12 +28,13 @@
 > The result is an updated application state
 [Source](https://docs.tendermint.com/master/spec/abci/abci.html#block-execution)
 
+---
+
 - The main messages that are used in state transition are:
   - InitChain
   - DeliverTx
   - EndBlock
   - Commit
-
 
 ---
 
@@ -75,7 +76,7 @@ Commit signals the application to persist application state. It takes no paramet
                 |  |                               |  |   Built with Cosmos SDK
                 |  |  State-machine = Application  |  |
                 |  |                               |  v
-                |  +-------------------------------+
+                |  +-------------ABCI--------------+
                 |  |                               |  ^
 Blockchain node |  |           Consensus           |  |
                 |  |                               |  |
@@ -84,6 +85,8 @@ Blockchain node |  |           Consensus           |  |
                 |  |           Networking          |  |
                 |  |                               |  |
                 v  +-------------------------------+  v
+
+ABCI - Application Blockchain Interface
 
 </pre>
 
@@ -127,9 +130,12 @@ Blockchain node |  |           Consensus           |  |
 - **The phase where validators wait for Prevotes is called _Prevote phase_**
 - Every validator that got a 2/3 of prevotes then prepares to precommit the block. They broadcast this to the rest of the network.
   and wait till they get same Precommit from 2/3 of the validator sets.
+
+---
+
 - **The phase where validators wait for Precommit is called _Precommit phase_**
 - Once a validator receives Precommit votes from 2/3 of the validator set, they commit the block and add it to their copy of the chain
 
-![img.png](img.png)
+<img src="./img.png" />
 
 [Source](https://docs.tendermint.com/master/introduction/what-is-tendermint.html#consensus-overview)
