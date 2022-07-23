@@ -18,8 +18,8 @@
 
 - Tendermint Core is the application-agnostic engine that handles the networking and consensus layers of a blockchain.
 - In practice, this means that Tendermint is responsible for propagating and ordering transaction bytes.
-- Tendermint passes transactions to the application through an interface called the ABCI (Application Blockchain Interface)
-- The state is updated by the application based on the messages received from Tendermint core
+- Tendermint passes transactions to the application through an interface called the ABCI (Application Blockchain Interface).
+- The state is updated by the application based on the messages received from Tendermint core.
 
 
 ---
@@ -29,10 +29,10 @@
 State transition functions are implemented in the application based on images recieved from the Tendermint consensus engine.
 
 - The main messages that are used in state transition are:
-  - InitChain
-  - DeliverTx
-  - EndBlock
-  - Commit
+  - InitChain.
+  - DeliverTx.
+  - EndBlock.
+  - Commit.
 
 > The first time a new blockchain is started, Tendermint calls InitChain.
 > From then on, the following sequence of methods is executed for each block:
@@ -97,8 +97,8 @@ ABCI - Application Blockchain Interface
 
 The core element of the application includes:
 
-- A state machine
-- Custom business logic
+- A state machine.
+- Custom business logic.
 
 ---
 
@@ -106,26 +106,26 @@ The core element of the application includes:
 
 - Header
   - Contains information used throughout consensus and other areas of the protocol, for example:
-    - Address of the validator that proposed the block
-    - MerkleRoot of the current validator set
-    - BlockID of the previous block
+    - Address of the validator that proposed the block.
+    - MerkleRoot of the current validator set.
+    - BlockID of the previous block.
 - Data
-  - Data contains a list of transactions
-  - The contents of the transaction is unknown to Tendermint
-- Evidence
-  - Evidence contains a list of infractions committed by validators
-  - This is used for slashing
-  - No more than 1/10th of the maximum block size (ConsensusParams.Block.MaxBytes) of evidence with each block
+  - Data contains a list of transactions.
+  - The contents of the transaction is unknown to Tendermint.
+- Evidence.
+  - Evidence contains a list of infractions committed by validators.
+  - This is used for slashing.
+  - No more than 1/10th of the maximum block size (ConsensusParams.Block.MaxBytes) of evidence with each block.
 
 ---
 
 ## Anatomy of a block (cont'd)
 
-- LastCommit
-  - A simple wrapper for a list of signatures
-  - Represents the votes validators casted 
-  - The commit in a block refers to the vote for previous block
-  - The number of votes in a commit is limited to 10000
+- LastCommit.
+  - A simple wrapper for a list of signatures.
+  - Represents the votes validators casted. 
+  - The commit in a block refers to the vote for previous block.
+  - The number of votes in a commit is limited to 10000.
 
 [Source](https://github.com/tendermint/tendermint/blob/master/spec/core/data_structures.md)
 
@@ -134,28 +134,28 @@ The core element of the application includes:
 
 Transactions are arbitrary byte arrays. 
 
-Transactions are meaningless to the Tendermint. It is only interpreted by the application 
+Transactions are meaningless to the Tendermint. It is only interpreted by the application. 
 
 ---
 
 ## Consensus algorithm
 
-- Consensus algorithm used is Tendermint BFT
-- A variation of Practical Byzantine Fault Tolerance
-- Introduced for partial asynchronous networks
+- Consensus algorithm used is Tendermint BFT.
+- A variation of Practical Byzantine Fault Tolerance.
+- Introduced for partial asynchronous networks.
 
 ---
 
 ## Overview of the Tendermint BFT
 
 - The tendermint BFT algorithm is multi-phased. It consists of the following phases:
-- A validator within a validator set is selected using a deterministically algorithm to build the next block
-- The deterministc algorithm used is a weighted round-robin algorithm
-  - The frequency of being chosen is proportional to the voting power (i.e. amount of bonded ATOM) of the validator
+- A validator within a validator set is selected using a deterministically algorithm to build the next block.
+- The deterministc algorithm used is a weighted round-robin algorithm.
+  - The frequency of being chosen is proportional to the voting power (i.e. amount of bonded ATOM) of the validator.
 - **This is the _Propose_ phase**
-- After building the next block the validator broadcasts it to the network
+- After building the next block the validator broadcasts it to the network.
 - Every validator that sees the block votes on the validity of the block. They broadcast also broadcast their
-  votes to everyone else on the network. Every validator waits till it gets votes from 2/3 of the validator set
+  votes to everyone else on the network. Every validator waits till it gets votes from 2/3 of the validator set.
 - **The phase where validators wait for Prevotes is called _Prevote phase_**
 - Every validator that got a 2/3 of prevotes then prepares to precommit the block. They broadcast this to the rest of the network.
   and wait till they get same Precommit from 2/3 of the validator sets.
@@ -163,7 +163,7 @@ Transactions are meaningless to the Tendermint. It is only interpreted by the ap
 ---
 
 - **The phase where validators wait for Precommit is called _Precommit phase_**
-- Once a validator receives Precommit votes from 2/3 of the validator set, they commit the block and add it to their copy of the chain
+- Once a validator receives Precommit votes from 2/3 of the validator set, they commit the block and add it to their copy of the chain.
 
 ---
 
