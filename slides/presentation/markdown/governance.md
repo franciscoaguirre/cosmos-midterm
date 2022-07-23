@@ -21,15 +21,16 @@
 
 ---
 
-## Proof Of Stake Recap
-- Representative Democracy
-- Run a multi-winner election mechanism to elect a set of k validators
+## Proof Of Stake
+- Cosmos uses delegated proof of stake consensus mechanism.
+- Form of representative Democracy.
+- Run a multi-winner election mechanism to elect a set of k validators.
 - In this election, the voting power of each voter is proportional to the number of tokens they own (their "stake"), so that if a voter owns 10 tokens, this is equivalent to there being 10 voters with a single token each and with identical ballots.
 
 ---
 
-## Proof of Stake Recap
-- Tokens are used as protection against a Sybil attack by an adversary
+## Proof of Stake
+- Tokens are used as protection against a Sybil attack by an adversary.
 - A malicious entity may control a large number of validator candidates, but it should be very difficult to get them elected in terms of the numbers of tokens that need to vote for them.
 ---
 
@@ -39,21 +40,21 @@
 - Minimize the variance of the stake in the set.
 ---
 ## Validator Selection (Theory)
-- Multiwinner election mechanism to select k=175 validators
-- Use k-plurality to elect validator set
+- Multiwinner election mechanism to select k=175 validators.
+- Use k-plurality to elect validator set.
 ---
 
 ## Shortcomings (Theory)
-- Encourages a tactical voting technique known as compromising
+- Encourages a tactical voting technique known as compromising.
 - Voters vote for one or few candidates most likely to win even if that is not their preference. 
 - In turn, this leads to very few candidates consolidating more and more vote support over time, in detriment to less popular candidates who perhaps are generally considered to be more competent.
-- Coordination Game!
+- It becomes a coordination Game!
 ---
 
 ## Don't Trust. Verify.
 ---
 ## Putting theory to test
-<img src="../../assets/img/3-Governance/Atom-staking.png" alt="Staking my atom">
+<img src="../../assets/img/3-Governance/atom-staking.png" alt="Staking atom">
 ---
 
 ## Cosmos vs Polkadot
@@ -66,8 +67,8 @@
 
 ## Cosmos vs Polkadot
 ### Total Stake
-- Cosmos: 191,331,986 ATOMS ≈ 2,100,000,000 USD
-- Polkadot: 628,940,586 DOTS ≈ 4,700,000,000 USD
+- Cosmos: 191,331,986 ATOMS ≈ 2,100,000,000 USD (63%)
+- Polkadot: 628,940,586 DOTS ≈ 4,700,000,000 USD (62.8%)
   
 </br></br></br></br></br>
 <div style="text-align: right"> (As on 21st July, 2022) </div>
@@ -75,7 +76,7 @@
 
 ## Cosmos vs Polkadot
 ### Highest Stake
-- Cosmos: 10,885,889 ATOMS ≈ 120,000,000 USD (5.69%)
+- Cosmos: 10,902,641 ATOMS ≈ 120,000,000 USD (5.67%)
 - Polkadot: 2,000,000 DOTS ≈ 15,000,000 USD (0.32%)
     
 </br></br></br></br></br>
@@ -95,18 +96,25 @@
 ## Cosmos vs Polkadot
 - Drops to 10x lower than the highest stake for validator#42.
 - Lowest stake 277 times lower than the highest stake. Compared to 8% lower in case of Polkadot.
+- Top 7 validators have more than 34% of voting power.
 - Top 22 validators have more than 66% of [voting power](https://www.mintscan.io/cosmos/validators).
 
 ---
+
+## Cosmos Validators Cumulative Voting Power
+<img src="../../assets/img/3-Governance/validator-voting-power.png" alt="Voting power validators">
+---
 ## POS Goals (Again)
-- 🤔 Maximize the total amount at stake.
+- ✅ Maximize the total amount at stake. <!-- 63% of ATOM tokens are staked -->
 - ❌ Maximize the stake behind the minimally staked validator.
 - ❌ Minimize the variance of the stake in the set.
 ---
 ## On Chain Proposal and Governance
-- 14 days deposit period for the required 64 ATOMS.
+- Two step process, 14 days deposit period followed by 14 days of voting period.
+- Minimum of 64 ATOMS required for a proposal to move from deposit period to voting period. <!-- down from 512 ATOMS-->
 - Voting options: `Abstain`, `Yes`, `No`, `NoWithVeto`.
 - Deposit Burned if 33.4% or more participating voting power votes for `NoWithVeto`.
+- Change network parameters, use community pool and even software upgrades. <!-- through splitting the upgrade into signal and switch-->
 
 ---
 
@@ -124,22 +132,25 @@
 - If delegators don't vote, the corresponding validators inherit their voting power.
 ---
 ## Concerns
+- Few of the biggest validators (centralised exchanges like binance, kraken) never participate in voting.
 - No Fast track governance. All proposals are treated in the same bucket.
 - Deposit burning when quorum is not reached discourage genuine users from proposing. 
-- No incentive for voting power to participate unless the proposal affects them directly.
+<!-- https://hub.cosmos.network/main/governance/process.html -->
+- No incentive for voting power to participate in proposals.
 - Not every ATOM holder can vote.
 - 74 proposals in last 39 months.
 ---
 
-## Two things we like
+## Things we like
 - Having on-chain governance and a community pool.
-- Having a deposit burning mechanism to prevent spam (though need to keep a balance to not discourage genuine proposals).
+- Weighted votes feature which allows stakers to split their votes into several voting options.
+- Having a deposit burning mechanism to prevent spam.
 
 ---
-## Two (of many) things we would improve
-- Improve validator selection mechanism so that voting power is more uniformly spread.
+## Things we would improve
+- Improve validator selection mechanism so that voting power is more uniformly spread. Today, top 7 validators can collude and attack the network.
 - Encourage more genuine proposals and more use of community pool.
-- Add different tiers of governance proposal and not treat all proposals as equal.
+- Add different tiers of governance proposal that require different timeline based on risk assessment.
 
 <!-- ## Notes -->
 
