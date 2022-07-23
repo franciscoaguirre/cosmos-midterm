@@ -22,54 +22,59 @@
 
 ## What is Cosmos?
 
-- Ecosystem of independent interconnected blockchains.
+- Ecosystem of networks and tools for creating self-sovereign interconnected blockchains.
 
-- Blockchains communicate to each other via IBC (Inter-Blockchain Communication) protocol.
+- Blockchains can be built using the Cosmos SDK.
 
-- Cosmos provides a SDK to build your own application specific chain and connect it to the network.
-
----
-
-## Cosmos Network
-
-- Hub and Zones Architecture
-
-- Zones are the regular heterogeneous blockchains.
-
-- Hubs are designed blockchains to connect the Zones.
+- Different blockchains can communicate with each other via IBC (Inter-Blockchain Communication protocol).
 
 ---
 
 ## Cosmos Network
 
-<img src="../../assets/img/0-Shared/hubs-and-zones.png" alt="Hub and Zones">
+<div style="width: 100%; display: flex; padding-top: 1rem; justify-content: space-between; align-items: center;">
+    <ul>
+        <li>Hub and Zones Architecture</li>
+        <li>Zones are regular heterogeneous blockchains</li>
+        <li>Hubs are blockchains designed to connect Zones</li>
+    </ul>
+    <img src="../../assets/img/0-Shared/cosmos-network.svg" style="width: 60%" alt="Hub and Zones" />
+</div>
 
 ---
 
-## Cosmos Hub
+## Cosmos Hub - Gaia
 
-- The first hub on the network is the Cosmos Hub.
+- The main Hub on the Cosmos network.
 
-- It is a proof of stake blockchain whose native staking token is ATOM.
+- Built with the Cosmos SDK.
 
-- From now on, when we say Cosmos, what we mean is Cosmos Hub.
+- The primary token is the ATOM.
+
+- Cosmos and Cosmos Hub will be used interchangeably in this presentation.
 
 ---
 
 ## Cosmos SDK
 
-- Open Source Framework for building multi-asset PoS blockchains
-
-- Written in Go
-
-- Apache License 2.0
+<div style="width: 100%; display: flex; padding-top: 1rem; justify-content: space-between; align-items: center;">
+    <ul>
+        <li>Open Source Framework for building multi-asset PoS blockchains</li>
+        <li>Written in Go</li>
+        <li>Apache License 2.0</li>
+    </ul>
+    <img src="../../assets/img/0-Shared/cosmos-sdk.svg" style="width: 50%" alt="Hub and Zones" />
+</div>
 
 ---
 
 ## IBC Protocol
 
-- General-purpose message passing protocol
-
-- Can be used for Interchain Accounts and Interchain Security
-
-- Can be setup using a Cosmos SDK Module
+<div style="width: 100%; display: flex; padding-top: 1rem; justify-content: space-between; align-items: center;">
+    <ul>
+        <li>General-purpose message passing protocol.</li>
+        <li>Can be used for Interchain Accounts and Interchain Security.</li>
+        <li>Can be setup using a Cosmos SDK Module.</li>
+    </ul>
+    <img src="../../assets/img/0-Shared/cosmos-ibc.svg" style="width: 50%" alt="Hub and Zones" />
+</div>
