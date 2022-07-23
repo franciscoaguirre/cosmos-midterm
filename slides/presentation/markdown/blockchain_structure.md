@@ -21,6 +21,19 @@
 - Tendermint passes transactions to the application through an interface called the ABCI (Application Blockchain Interface)
 - The state is updated by the application based on the messages received from Tendermint core
 
+
+---
+
+## State Transition Function
+
+State transition functions are implemented in the application based on images recieved from the Tendermint consensus engine.
+
+- The main messages that are used in state transition are:
+  - InitChain
+  - DeliverTx
+  - EndBlock
+  - Commit
+
 > The first time a new blockchain is started, Tendermint calls InitChain.
 > From then on, the following sequence of methods is executed for each block:
 > BeginBlock, [DeliverTx], EndBlock, Commit
@@ -30,15 +43,7 @@
 
 ---
 
-- The main messages that are used in state transition are:
-  - InitChain
-  - DeliverTx
-  - EndBlock
-  - Commit
-
----
-
-## InitChain and EndBlock
+### InitChain and EndBlock
 
 - Updates the validator set.
 
@@ -51,7 +56,7 @@
 
 ---
 
-## DeliverTx
+### DeliverTx
 
 When a valid block is received by Tendermint Core, each transaction in the block
 is passed to the application via DeliverTx in order to be processed.
@@ -61,7 +66,7 @@ It is during this stage that the state transitions occur.
 
 ---
 
-## Commit
+### Commit
 
 Commit signals the application to persist application state. It takes no parameters
 
@@ -69,7 +74,7 @@ Commit signals the application to persist application state. It takes no paramet
 
 ---
 
-### Core element of the application stack
+## Core element of the application stack
 
 <pre>
                 ^  +-------------------------------+  ^
@@ -90,7 +95,9 @@ ABCI - Application Blockchain Interface
 
 </pre>
 
-- State machine
+The core element of the application includes:
+
+- A state machine
 - Custom business logic
 
 ---
@@ -140,6 +147,7 @@ Transactions are meaningless to the Tendermint. It is only interpreted by the ap
 ---
 
 ## Overview of the Tendermint BFT
+
 - The tendermint BFT algorithm is multi-phased. It consists of the following phases:
 - A validator within a validator set is selected at random to build the next block
 - **This is the _Propose_ phase**
