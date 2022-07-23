@@ -32,26 +32,27 @@
 
 ## Cosmos Network
 
-<div style="width: 100%; display: flex; padding-top: 1rem; justify-content: space-between; align-items: center;">
-    <ul>
-        <li>Hub and Zones Architecture</li>
-        <li>Zones are regular heterogeneous blockchains</li>
-        <li>Hubs are blockchains designed to connect Zones</li>
-    </ul>
-    <img src="../../assets/img/0-Shared/cosmos-network.svg" style="width: 60%" alt="Hub and Zones" />
-</div>
+<img src="../../assets/img/0-Shared/cosmos-arch.svg" style="width: 50%" alt="Hub and Zones" />
+
+<ul>
+    <li>Hub and Zones architecture.</li>
+    <li>Zones are regular heterogeneous blockchains.</li>
+    <li>Hubs are blockchains designed to connect Zones.</li>
+</ul>
 
 ---
 
 ## Cosmos Hub - Gaia
 
-- The main Hub on the Cosmos network.
-
-- Built with the Cosmos SDK.
-
-- The primary token is the ATOM.
-
-- Cosmos and Cosmos Hub will be used interchangeably in this presentation.
+<div style="width: 100%; display: flex; padding-top: 1rem; justify-content: space-between; align-items: center;">
+    <ul>
+        <li>The main Hub on the Cosmos network.</li>
+        <li>Built with the Cosmos SDK.</li>
+        <li>The primary token is the ATOM.</li>
+        <li>Cosmos and Cosmos Hub will be used interchangeably in this presentation.</li>
+    </ul>
+    <img src="../../assets/img/0-Shared/cosmos-network.svg" style="width: 50%" alt="Hub and Zones"/>
+</div>
 
 ---
 
@@ -68,7 +69,7 @@
 
 ---
 
-## IBC Protocol
+## IBC
 
 <div style="width: 100%; display: flex; padding-top: 1rem; justify-content: space-between; align-items: center;">
     <ul>
