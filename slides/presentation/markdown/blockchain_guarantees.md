@@ -19,9 +19,9 @@
 - Tendermint guarantees liveness so long as less than 1/3 of the total weight of the Validator set is malicious or faulty.
 
 - In the consensus algorithm, a validator's Precommit vote is _locked_ to the block, preventing from Precommit voting for another block
-    - > a PreCommit for a block must come with justification, in the form of a Polka for that block. If the validator has already PreCommit a block at round R1, we say they are _locked on that block, and the Polka used to justify the new PreCommit at round R_2 must come in a round R_polka where R_1 < R_polka <= R_2 [source: Whitepaper](https://v1.cosmos.network/resources/whitepaper)
+    - > a PreCommit for a block must come with justification, in the form of a Polka for that block. If the validator has already PreCommit a block at round R1, we say they are _locked on that block, and the Polka used to justify the new PreCommit at round R_2 must come in a round R_polka where R_1 < R_polka <= R_2 [source: Whitepaper](https://v1.cosmos.network/resources/whitepaper).
 - Validators must Propose and/or PreVote the block they are locked on
-   - > Second, validators must Propose and/or PreVote the block they are locked on. Together, these conditions ensure that a validator does not PreCommit without sufficient evidence as justification, and that validators which have already PreCommit cannot contribute to evidence to PreCommit something else. This ensures both safety and liveness of the consensus algorithm [source: Whitepaper](https://v1.cosmos.network/resources/whitepaper)
+   - > Second, validators must Propose and/or PreVote the block they are locked on. Together, these conditions ensure that a validator does not PreCommit without sufficient evidence as justification, and that validators which have already PreCommit cannot contribute to evidence to PreCommit something else. This ensures both safety and liveness of the consensus algorithm [source: Whitepaper](https://v1.cosmos.network/resources/whitepaper).
 
 ---
 
@@ -34,26 +34,26 @@ will get more or less φ fraction of the total reward that is given in the syste
 
 [source: Correctness and Fairness of Tendermint-core Blockchains](https://eprint.iacr.org/2018/574.pdf)
 
-- Fairness around the way rewards are distributed
-- Fairness around selection of voting committees
+- Fairness around the way rewards are distributed.
+- Fairness around selection of voting committees.
 
 ---
 
 ### Fairness around the way rewards are distributed
 
-Properties for characterizing the fairness of a reward mechanism
+Properties for characterizing the fairness of a reward mechanism.
 
 1. For each block in the blockchain, all correct validators for that block have a reward parameter
-equal to 1
+equal to 1.
 2. For each block in the blockchain, all faulty validators and the processes that are not validators
 should have a reward parameter for that block equal to 0.
 3. A process gets a reward for a block if and only if it has a reward parameter for that block
-equal to 1
+equal to 1.
     - 3') There exists a height H such that for a block in the blockchain at height H0 > H a process gets a reward for that block if and only if it has a reward parameter for that block equal to 1.
 
 Definition: 
 - A reward mechanism is fair if it satisfies the conditions 1, 2 and 3.
-- A reward mechanism is eventually fair if it satisfies the conditions 1, 2 and 3’
+- A reward mechanism is eventually fair if it satisfies the conditions 1, 2 and 3’.
 
 ---
 
@@ -62,11 +62,11 @@ Definition:
 Tendermint’s reward mechanism works as follows:
 
 - Once a new block is decided for height H, processes wait for _TimeOutCommit_ time to collect
-the decision from the other validators for H, and put them in their set _toReward_
+the decision from the other validators for H, and put them in their set _toReward_.
 - During the consensus at height H, let us assume that pi proposes the block that will get
 decided in the consensus. pi proposes to reward processes in its set toReward.
 That is, only the processes from which pi delivered a commit will get a reward for the block
-at height H − 1
+at height H − 1.
 
 Repercussion: The reward mechanism of Tendermint is not eventually fair.
 
@@ -91,10 +91,10 @@ to collect the decision from the other validators for that height, and put them 
 toReward.
 
 - If a process did not get the commits from all the validators for that height before the expiration
-of the time-out, it increases the time-out for the next height
+of the time-out, it increases the time-out for the next height.
 
 - During the consensus at height H, let us assume that pi proposes the block that will get
-decided in the consensus. pi gives the reward to the processes in its toReward
+decided in the consensus. pi gives the reward to the processes in its _toReward_.
 
 In this reward mechanism, _TimeOutCommit_ is increased whenever a process does not have the
 time to deliver all the commits for the previous round making the reward mechanism
@@ -117,9 +117,9 @@ between correct and Byzantine processes in the synchronous period.
 
 ### Fairness around selection of voting committees
 
-- The fairness of selection is related to their voting power
-- A new validator might have to wait for long time before being selected 
-    - A validator V that has just been elected is moved to the end of the queue. If the validator set is large and/ or other validators have significantly higher power, V will have to wait many runs to be elected
+- The fairness of selection is related to their voting power.
+- A new validator might have to wait for long time before being selected. 
+    - A validator V that has just been elected is moved to the end of the queue. If the validator set is large and/ or other validators have significantly higher power, V will have to wait many runs to be elected.
     
 ---
 
