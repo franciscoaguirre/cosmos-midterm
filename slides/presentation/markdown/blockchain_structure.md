@@ -26,7 +26,7 @@
 
 ## State Transition Function
 
-State transition functions are implemented in the application based on images recieved from the Tendermint consensus engine.
+State transition functions are implemented in the application based on messages recieved from the Tendermint consensus engine.
 
 - The main messages that are used in state transition are:
   - InitChain.
