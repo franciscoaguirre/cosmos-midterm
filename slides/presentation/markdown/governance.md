@@ -39,12 +39,9 @@
 - Maximize the stake behind the minimally staked validator.
 - Minimize the variance of the stake in the set.
 ---
-## Validator Selection (Theory)
-- Multiwinner election mechanism to select k=175 validators.
-- Use k-plurality to elect validator set.
----
 
 ## Shortcomings (Theory)
+- Mechanism they use k-plurality, which is extension of plurality and inherits many of the issues from it.
 - Encourages a tactical voting technique known as compromising.
 - Voters vote for one or few candidates most likely to win even if that is not their preference. 
 - In turn, this leads to very few candidates consolidating more and more vote support over time, in detriment to less popular candidates who perhaps are generally considered to be more competent.
@@ -94,7 +91,7 @@
 
 
 ## Cosmos vs Polkadot
-- Drops to 10x lower than the highest stake for validator#42.
+- Coting power of cosmos validators drops to 10x lower than the highest stake for validator#42.
 - Lowest stake 277 times lower than the highest stake. Compared to 8% lower in case of Polkadot.
 - Top 7 validators have more than 34% of voting power.
 - Top 22 validators have more than 66% of [voting power](https://www.mintscan.io/cosmos/validators).
