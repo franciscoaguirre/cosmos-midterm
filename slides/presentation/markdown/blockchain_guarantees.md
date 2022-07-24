@@ -49,11 +49,11 @@ equal to 1.
 should have a reward parameter for that block equal to 0.
 3. A process gets a reward for a block if and only if it has a reward parameter for that block
 equal to 1.
-    - 3') There exists a height H such that for a block in the blockchain at height H0 > H a process gets a reward for that block if and only if it has a reward parameter for that block equal to 1.
+4. There exists a height H such that for a block in the blockchain at height H0 > H a process gets a reward for that block if and only if it has a reward parameter for that block equal to 1.
 
 Definition: 
 - A reward mechanism is fair if it satisfies the conditions 1, 2 and 3.
-- A reward mechanism is eventually fair if it satisfies the conditions 1, 2 and 3’.
+- A reward mechanism is eventually fair if it satisfies the conditions 1, 2 and 4.
 
 ---
 
