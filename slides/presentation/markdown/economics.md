@@ -27,23 +27,25 @@
 ## Cosmos Fundraiser
 
 - Ran in 2017.
-<!-- - Originally intended to last two weeks.
-- Actually finished in less than 30 minutes.
-  I think these two lines are the usual mkt bullish thing. ICOs usually end in minutes.
-  -->
+
 - Both ETH and BTC were accepted.
+
 - Hidden cap of 17M.
+
 - Smart contract in Ethereum and miscellaneous tools (cli) audited by OpenZeppelin.
 
 ---
 
 ## Evolution of token base over time
 
-ATOM is an inflationary token.
+**ATOM is an inflationary token**
 
 - Initially 7% inflation sent to validators and delegators.
+
 - This inflation rate adjusts itself over time in order to incentivize at least 2/3 of the ATOMs to be bonded.
+
 - As of 21st of July 2022, the percentage of ATOMs bonded is close to 63%, and the inflation rate is close to 12%.
+
 - No fee burning mechanism. They argue this will disincentivize staking.
 
 ---
@@ -69,9 +71,13 @@ ATOM is an inflationary token.
 ## Supply and demand
 
 - Supply is driven by the inflation rate.
+
 - Circulating supply is decreased when users stake ATOM.
+
 - Demand is driven by the utility of ATOM.
+
 - As the token is inflationary, the equilibrium price will always decrease unless demand increases.
+
 - Demand could increase based on new projects joining the network (for example Osmosis).
 
 ---
