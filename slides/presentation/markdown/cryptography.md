@@ -122,6 +122,12 @@ An "HD path" is an instruction as to how to derive a keypair from a root secret.
 
 `m / 44' / coin_type' / account' / change / address_index`
 
+---
+
+### Accounts
+
+#### Hierarchical Deterministic Key Derivation
+
 The Cosmos Hub HD path is:
 
 `m / 44' / 118' / 0' / 0 / address_index`
@@ -183,12 +189,12 @@ Block, Transaction, Vote, Events, Application's state.
 The notable one are tree-like data structure:
 
 - Simple Merkle tree: used for storing transaction hashs. The Merkle root is stored in the block header.
-- IAVL+ Tree: key-value pair based storage for the application's state.
+- IAVL+ Tree: an implementation of a key-value pair based storage for the application's state.
 
 Because Tendermint only uses a Simple Merkle Tree, application developers are expect to use their own Merkle tree in their applications.
 For example, the IAVL+ Tree is an immutable self-balancing binary tree for persisting application state is defined in the [Cosmos SDK](https://github.com/cosmos/cosmos-sdk/blob/ae77f0080a724b159233bd9b289b2e91c0de21b5/docs/interfaces/lite/specification.md).
 
-Any data structure can be used as a store, as long as it implements de `BasicKVStore` and `KVStore`.
+Any data structure can be used as a store, as long as it implements de [BasicKVStore](https://github.com/cosmos/cosmos-sdk/blob/main/store/types/store.go#L197) and [KVStore](https://github.com/cosmos/cosmos-sdk/blob/main/store/types/store.go#L212).
 
 ---
 
@@ -281,15 +287,14 @@ Pro:
 Cons:
 
 - while IAVL+ trees provide a deterministic merkle root hash, it depends on the order of transactions.
-
----
+- slow and inefficient
 
 ### What did we learn from Cosmos's cryptography
 
 - They follow a lot of good conventions and specifications which are from Bitcoin era and are still valid and used today.
-- Reliable cryptography on consensus side
+- Reliable cryptography on Tendermint side
 - Usage of good cryptography libraries for hashing, encryption and Ed25519.
 - The spec256k1 library they used is coming from a project which is not so reputable in cryptography development.
 - While Bitcoin used spec256k1 in 2009, one could expect Cosmos to use a less controversial elliptic curve (NSA backdoor).
-- Would like to see a better data structure for storing application's state like Sparse Merkle Tree (expected Q1 2023)
+- Would like to see a better data structures for storing application's state like Sparse Merkle Tree (expected Q1 2023), MMR in the CosmosSDK
 - Different Elliptic curves, digital signature algorithms, addresse types are used on application side and consensus side. It adds complexity.
