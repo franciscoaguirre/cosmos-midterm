@@ -149,14 +149,3 @@
 - Encourage more genuine proposals and more use of community pool.
 - Add different tiers of governance proposal that require different timeline based on risk assessment.
 
-<!-- ## Notes -->
-
-<!-- > Governance -->
-<!-- - 64 atoms deposit -->
-<!-- - anyone can deposit -->
-<!-- - Options: Abstain, Yes, No, NoWithVeto -->
-<!-- - Minimum voting power 40% required -->
-<!-- - if 33.4% Veto, deposit is burned -->
-<!-- - fixed 14 day voting period -->
-<!-- - Only validators and delegators in active set has voting power -->
-<!-- - Total validators 175 -->
