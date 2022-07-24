@@ -91,8 +91,8 @@
 
 
 ## Cosmos vs Polkadot
-- Coting power of cosmos validators drops to 10x lower than the highest stake for validator#42.
-- Lowest stake 277 times lower than the highest stake. Compared to 8% lower in case of Polkadot.
+- Voting power of Cosmos validators drops to 10x lower than the highest stake for validator#42.
+- Lowest stake Cosmos validator has 277 times lower voting power than the highest stake validator. In Polkadot, this difference is just 8%.
 - Top 7 validators have more than 34% of voting power.
 - Top 22 validators have more than 66% of [voting power](https://www.mintscan.io/cosmos/validators).
 
