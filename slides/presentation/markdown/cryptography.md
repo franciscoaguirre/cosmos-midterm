@@ -290,6 +290,6 @@ Cons:
 - Reliable cryptography on consensus side
 - Usage of good cryptography libraries for hashing, encryption and Ed25519.
 - The spec256k1 library they used is coming from a project which is not so reputable in cryptography development.
-- While Bitcoin used spec256k1 in 2009, one could expect Cosmos to use a less controversial elliptic curve.
+- While Bitcoin used spec256k1 in 2009, one could expect Cosmos to use a less controversial elliptic curve (NSA backdoor).
 - Would like to see a better data structure for storing application's state like Sparse Merkle Tree (expected Q1 2023)
-- Different Elliptic curves and digital signature algorithms are used on application side and consensus side. It adds complexity.
+- Different Elliptic curves, digital signature algorithms, addresse types are used on application side and consensus side. It adds complexity.
