@@ -63,7 +63,7 @@ Tendermint’s reward mechanism works as follows:
 
 - Once a new block is decided for height H, processes wait for _TimeOutCommit_ time to collect
 the decision from the other validators for H, and put them in their set _toReward_.
-- During the consensus at height H, let us assume that pi proposes the block that will get
+- During the consensus at height H, let us assume that p<sub>i</sub> proposes the block that will get
 decided in the consensus. pi proposes to reward processes in its set toReward.
 That is, only the processes from which pi delivered a commit will get a reward for the block
 at height H − 1.
@@ -123,7 +123,7 @@ between correct and Byzantine processes in the synchronous period.
 
 ### Fairness around selection of voting committees
 
-- The fairness of selection is related to their voting power, which is related to amount of stake they hold.
+- The frequency of selection is related to their voting power, which is related to amount of stake they hold.
 - A new validator might have to wait for long time before being selected. 
     - A validator V that has just been elected is moved to the end of the queue. If the validator set is large and/ or other validators have significantly higher power, V will have to wait many runs to be elected.
 - The selection mechanism also has a weakness that it can lead to very few candidates consolidating vote support over time, in detriment to less popular candidates who perhaps are generally considered to be more competent. See the _Governance_ section for more information on this.
