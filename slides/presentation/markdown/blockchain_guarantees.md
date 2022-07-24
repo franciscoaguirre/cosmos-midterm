@@ -136,5 +136,4 @@ The censorship-resistance guarantees only holds as long as malicious validators 
 
 As at 21st July, 2022, there are 175 validators on the Cosmos Hub. The relatively small number increases the possibility for validators to collude, making censorship easier. 
 
----
 
