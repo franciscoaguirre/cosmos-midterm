@@ -23,7 +23,7 @@ We can see that user accounts and consensus validator accounts don't use the sam
 
 secp256k1 elliptic curve with formula: `y^2 = x^3 + 7`.
 
-<img src="../../assets/img/0-Shared/secp256k1.png" style="width: 50%" alt="Hub and Zones" />
+<img src="../../assets/img/0-Shared/secp256k1.png" style="width: 50%" alt="secp256k1 curve" />
 
 ---
 
@@ -35,20 +35,24 @@ The `G point` is added to himself a secret number of times (the `private key`) t
 
 As an y-coordinate can be calculated easily from an x-coordinate following the formula `y^2 = x^3 + 7`, we can just keep the x-coordinate + a prefix to identify if the y-coordinate associated is the largest one or the smaller one.
 
-Cosmos follows best practice by compressing the public key:
+Cosmos follows best practice by compressing the public key to 33 bytes (1 byte prefix + 32 bytes x-coordinate):
 
 - `0x02` prefix concatenated to the x-coordinate if the y-coordinate associated is the largest one.
 - `0x03` prefix concatenated to the x-coordinate if the y-coordinate associated is the smaller one.
 
 ---
 
-### Signing
+### Signature
 
 Processes involving signing with private keys:
 
 - application transactions and common usage: token transfers, smart contract interactions, etc...
 - governance: submiting and voting for proposals.
 - consensus: proposing and voting for new blocks.
+
+Tendermint adopted [zip215](https://zips.z.cash/zip-0215) for verification of ed25519 signatures.
+
+Multisig transactions are a built-in feature in the Cosmos SDK.
 
 ---
 
@@ -61,7 +65,7 @@ It is used everywhere a hash function is needed:
 - compute addresses from public keys.
 - Merkle tree hashing function.
 
-RIPEMD160 cryptographic hash function has been fully removed from all components of Cosmos/Tendermint.
+_RIPEMD160_ cryptographic hash function has been [fully removed](https://github.com/cosmos/cosmos-sdk/pull/2308) from all components of Cosmos/Tendermint.
 
 ---
 
@@ -122,8 +126,8 @@ The Cosmos Hub HD path is:
 
 `m / 44' / 118' / 0' / 0 / address_index`
 
-- 44 is the BIP44 purpose
-- 118 is the coin type for ATOM
+- 44 is the BIP44
+- 118 is the coin type for ATOM as defined in [SLIP-0044](https://github.com/satoshilabs/slips/blob/master/slip-0044.md)
 - address_index is used for multiple accounts of the same user.
 
 ---
@@ -157,16 +161,28 @@ The Cosmos Hub HD path is:
 
 #### Addresses in Cosmos
 
-- Generally speaking an account is identified by an address which is just a sequence of bytes derived from a public key.
-- 3 kind of addresses:
-  - `AccAddress` identifies users
-  - `ValAddress` identifies validator operators
-  - `ConsAddress` identifies validator nodes that are participating in consensus. (Validator nodes are derived using the ed25519 curve.)
+- Addresses are calculated by hashing the public key using SHA-256 and truncating it to only use the first 20 bytes of the slice.
+
+  ```rust
+  // An hypothetical rust code
+  let addr = SHA265(pub_key)[0..20];
+  ```
+
+For user facing representation/interaction, addresses are formated using [Bech32](https://en.bitcoin.it/wiki/Bech32) with a prefix which depend on the type of the address:
+
+- account addresses are prefixed with `cosmos`
+- validator operator addresses are prefixed with `cosmosvaloper`
+- consensus node addresses are prefixed with `cosmosvalcons`
+
+---
 
 ### Data structures
 
 - merkle tree
 - IAVL+ Tree
+
+Because Tendermint only uses a Simple Merkle Tree, application developers are expect to use their own Merkle tree in their applications.
+For example, the IAVL+ Tree - an immutable self-balancing binary tree for persisting application state is defined in the [Cosmos SDK](https://github.com/cosmos/cosmos-sdk/blob/ae77f0080a724b159233bd9b289b2e91c0de21b5/docs/interfaces/lite/specification.md)
 
 ---
 
@@ -179,9 +195,11 @@ Merkle trees are used throughout Tendermint to compute a cryptographic digest of
 
 2 Particularities for RFC 6962 compliant merkle trees:
 
-- leaf nodes and inner nodes have different hashes. This is for "second pre-image resistance", to prevent the proof to an inner node being valid as the proof of a leaf. The leaf nodes are SHA256(0x00 || leaf_data), and inner nodes are SHA256(0x01 || left_hash || right_hash).
+- leaf nodes and inner nodes have different hashes. This is for "second pre-image resistance", to prevent the proof to an inner node being valid as the proof of a leaf. The leaf nodes are SHA256(0x00 || leaf_data), and inner nodes are SHA256(0x01 || left_hash || right_hash). `||` means concatenation.
 
 - When the number of items isn't a power of two, the left half of the tree is as big as it could be. (The largest power of two less than the number of items) This allows new leaves to be added with less recomputation.
+
+To compute a Merkle proof, the number of aunts is limited to 100 (MaxAunts) to protect the node against DOS attacks. This limits the tree size to 2^100 leaves.
 
 ---
 
@@ -244,6 +262,8 @@ h0  h1  h2  h3  h4  h5
 
 #### IAVL+ Tree
 
+https://github.com/cosmos/iavl/blob/master/README.md
+
 The purpose of this data structure is to provide persistent storage for key-value pairs, for example store account balances.
 
 In Ethereum, the analog is Patricia tries.
@@ -259,7 +279,19 @@ Cons:
 
 ---
 
-### Improvement we would like to see
+### Conclusion
 
-- change spec256K1 cure to a better one (nsa backdoor)
+#### TODO
+
+Good:
+
+- They follow a lot of good specification and convention which are from bitcoin era and are still valid and over used today
+- a solid crypto on consensus side
+- Using good lib for hashing, encyphering and ed curve.
+
+Bad:
+
+- Use a more known library for spec256k1 or even better change the DSA. Since post Snowden revelation era we should be carefull with everything coming from the NSA.
 - better tree data structure like sparse merkle tree
+  https://docs.cosmos.network/master/architecture/adr-040-storage-and-smt-state-commitments.html
+- Different DSA on application and consensus make thing harder to follow and different addresses types.
