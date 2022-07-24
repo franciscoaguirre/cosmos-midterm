@@ -128,5 +128,7 @@ between correct and Byzantine processes in the synchronous period.
 
 The censorship-resistance guaranteeas only holds as long as malicious validators are not more than 1/3 of the validator set.
 
+As at 21st July, 2022, there are 175 validators on the Cosmos Hub. The relatively small number increases the possibility for validators to collude, making censorship easier. 
+
 ---
 
