@@ -4,16 +4,6 @@
 
 ---
 
-<!-- **How does this blockchain/project guarantee the following?** -->
-
-<!-- - **Liveness:** That the blockchain is always adding more transactions and that service will not be interrupted. -->
-
-<!-- - **Fairness:** No systemic discrimination that is against the rules of the protocol -->
-
-<!-- - **Censorship-resistance:** No individual actor or coalition can prevent the access of another to the system. -->
-
-<!-- - **Safety:** No conflicting information. -->
-
 ## Liveness and Safety Guarantee
 
 - Tendermint guarantees liveness so long as less than 1/3 of the total weight of the Validator set is malicious or faulty.

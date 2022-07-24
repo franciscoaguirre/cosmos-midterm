@@ -4,16 +4,6 @@
 
 ---
 
-<!-- **Goal:** Evaluate the blockchain structure of this project; name at least two things you like and two things you would want to improve. -->
-
-<!-- - What is the state transition function of this blockchain/project? -->
-
-<!-- - What are the core elements of the application stack? -->
-
-<!-- - What is the anatomy of a block in this system? -->
-
-<!-- - What is the consensus algorithm that is used? How does it work? -->
-
 ## Overview
 
 - Tendermint Core is the application-agnostic engine that handles the networking and consensus layers of a blockchain.
