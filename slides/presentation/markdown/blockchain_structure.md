@@ -46,7 +46,7 @@ State transition functions are implemented in the application based on messages 
 ### InitChain and EndBlock
 
 - Updates the validator set.
-
+  
 > The application may set the validator set during InitChain,
 > and may update it during EndBlock
 > [source](https://docs.tendermint.com/master/spec/abci/apps.html#updating-the-validator-set)
@@ -105,10 +105,11 @@ The core element of the application includes:
 ## Anatomy of a block
 
 - Header
-  - Contains information used throughout consensus and other areas of the protocol, for example:
-    - Address of the validator that proposed the block.
-    - MerkleRoot of the current validator set.
-    - BlockID of the previous block.
+  - Contains information used throughout consensus and other areas of the protocol, some interesting ones are:
+    - `ProposerAddress`: Address of the validator that proposed the block.
+    - `ValidatorHash`: MerkleRoot of the current validator set.
+    - `LastBlockID`: BlockID of the previous block.
+    - `AppHash`: The state root. Arbitrary byte array returned by the application after executing and commiting the previous block. It serves as the basis for validating any merkle proofs that comes from the ABCI application and represents the state of the actual application rather than the state of the blockchain itself.
 - Data
   - Data contains a list of transactions.
   - The contents of the transaction is unknown to Tendermint.
