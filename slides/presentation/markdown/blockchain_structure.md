@@ -74,7 +74,7 @@ Commit signals the application to persist application state. It takes no paramet
 
 ---
 
-## Core element of the application stack
+## Core elements of the application stack
 
 <pre>
                 ^  +-------------------------------+  ^
@@ -142,7 +142,7 @@ Transactions are meaningless to the Tendermint. It is only interpreted by the ap
 
 - Consensus algorithm used is Tendermint BFT.
 - A variation of Practical Byzantine Fault Tolerance.
-- Introduced for partial asynchronous networks.
+- Introduced for partially synchronous networks.
 
 ---
 
