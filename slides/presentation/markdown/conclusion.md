@@ -18,4 +18,8 @@
 
 ## Attack - Node DDos
 
-- Since the block proposers are selected in a round-robin style, it's possible to know beforehand which is going to be the next one.
+- The block proposer is chosen by a deterministic and non-choking round robin selection algorithm that selects proposers in proportion to their voting power.
+
+- It's possible to know beforehand which is going to be the next one.
+
+- If the node has no protection, such as having a sentry node network topology, it can be a victim to a DDos attack.
