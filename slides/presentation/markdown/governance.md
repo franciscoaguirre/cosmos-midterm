@@ -110,7 +110,7 @@
 - Two step process, 14 days deposit period followed by 14 days of voting period.
 - Minimum of 64 ATOMS required for a proposal to move from deposit period to voting period. <!-- down from 512 ATOMS-->
 - Voting options: `Abstain`, `Yes`, `No`, `NoWithVeto`.
-- Deposit Burned if 33.4% or more participating voting power votes for `NoWithVeto`.
+- Deposit Burned if 33.4% or more participating voting power votes for `NoWithVeto`. It is also burned if quorum is not reached.
 - Change network parameters, use community pool and even software upgrades. <!-- through splitting the upgrade into signal and switch-->
 
 ---
