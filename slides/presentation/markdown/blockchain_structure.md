@@ -183,6 +183,8 @@ Transactions are meaningless to the Tendermint. It is only interpreted by the ap
 - Instant finality of the blockchain. There cannot be forks of the chain.
 - The ABCI interface is well defined and simple.
 
+---
+
 ## Things we would like to improve
 
 - The instant finality means the block authoring and block finality is coupled. Time complexity of block authoring is O(n) while block finality is O(log n). The coupling means that block authoring is going to be throttled by the block finality.
