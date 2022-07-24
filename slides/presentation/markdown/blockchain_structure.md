@@ -113,6 +113,11 @@ The core element of the application includes:
 - Data
   - Data contains a list of transactions.
   - The contents of the transaction is unknown to Tendermint.
+
+---
+
+## Anatomy of a block (cont'd)
+
 - Evidence.
   - Evidence contains a list of infractions committed by validators.
   - This is used for slashing.
