@@ -188,6 +188,8 @@ The notable one are tree-like data structure:
 Because Tendermint only uses a Simple Merkle Tree, application developers are expect to use their own Merkle tree in their applications.
 For example, the IAVL+ Tree is an immutable self-balancing binary tree for persisting application state is defined in the [Cosmos SDK](https://github.com/cosmos/cosmos-sdk/blob/ae77f0080a724b159233bd9b289b2e91c0de21b5/docs/interfaces/lite/specification.md).
 
+Any data structure can be used as a store, as long as it implements de `BasicKVStore` and `KVStore`.
+
 ---
 
 ### Data structures
@@ -289,7 +291,5 @@ Cons:
 - Usage of good cryptography libraries for hashing, encryption and Ed25519.
 - The spec256k1 library they used is coming from a project which is not so reputable in cryptography development.
 - While Bitcoin used spec256k1 in 2009, one could expect Cosmos to use a less controversial elliptic curve.
-- better tree data structure like sparse merkle tree
-  https://docs.cosmos.network/master/architecture/adr-040-storage-and-smt-state-commitments.html
-- Different Elliptic curves used on application side and consensus side add complexity:
-  - Different curves, addresses format
+- Would like to see a better data structure for storing application's state like Sparse Merkle Tree (expected Q1 2023)
+- Different Elliptic curves and digital signature algorithms are used on application side and consensus side. It adds complexity.
