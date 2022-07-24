@@ -113,6 +113,11 @@ The core element of the application includes:
 - Data
   - Data contains a list of transactions.
   - The contents of the transaction is unknown to Tendermint.
+
+---
+
+## Anatomy of a block (cont'd)
+
 - Evidence.
   - Evidence contains a list of infractions committed by validators.
   - This is used for slashing.
@@ -171,3 +176,16 @@ Transactions are meaningless to the Tendermint. It is only interpreted by the ap
 <img src="https://docs.tendermint.com/master/assets/img/consensus_logic.e9f4ca6f.png" width="60%" />
 
 [Source](https://docs.tendermint.com/master/introduction/what-is-tendermint.html#consensus-overview)
+
+---
+
+## Things we like
+- Instant finality of the blockchain. There cannot be forks of the chain.
+- The ABCI interface is well defined and simple.
+
+---
+
+## Things we would like to improve
+
+- The instant finality means the block authoring and block finality is coupled. Time complexity of block authoring is O(n) while block finality is O(log n). The coupling means that block authoring is going to be throttled by the block finality.
+- The consensus algorithm is deterministic. A random algorithm is preferably.  
