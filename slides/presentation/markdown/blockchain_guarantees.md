@@ -14,7 +14,7 @@
 
 <!-- - **Safety:** No conflicting information. -->
 
-## Liveness and Saftey Guarantee
+## Liveness and Safety Guarantee
 
 - Tendermint guarantees liveness so long as less than 1/3 of the total weight of the Validator set is malicious or faulty.
 
