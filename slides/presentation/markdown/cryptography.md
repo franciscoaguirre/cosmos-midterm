@@ -47,7 +47,7 @@ Cosmos follows best practice by compressing the public key to 33 bytes (1 byte p
 Processes involving signing with private keys:
 
 - application transactions and common usage: token transfers, smart contract interactions, etc...
-- governance: submiting and voting for proposals.
+- governance: submitting and voting for proposals.
 - consensus: proposing and voting for new blocks.
 
 Tendermint adopted [zip215](https://zips.z.cash/zip-0215) for verification of ed25519 signatures.
@@ -69,7 +69,7 @@ _RIPEMD160_ cryptographic hash function has been [fully removed](https://github.
 
 ---
 
-### Symetric encryption
+### Symmetric encryption
 
 _XSalsa20_ Symmetric Cipher is used to store on disk encrypted private keys protected with a passphrase.
 
@@ -84,9 +84,9 @@ As tools for ZK and privacy are missing, mainly due to the fact that the CosmosS
 
 ---
 
-### Dependency on cryptography librairies I
+### Dependency on cryptography libraries I
 
-CosmosSDK and Tendermint are written in Go, so librairies used for cryptography are imported from various Go packages and projects.
+CosmosSDK and Tendermint are written in Go, so libraries used for cryptography are imported from various Go packages and projects.
 
 - secp256k1: depends on the implementation of the [decred project](https://github.com/decred/dcrd/tree/master/dcrec/secp256k1). This is also the library used in [btcd](https://github.com/btcsuite/btcd)(a bitcoin node written in go).
 - secp256r1: depends on [Go core crypto package](https://pkg.go.dev/crypto/elliptic#P256)
@@ -96,9 +96,9 @@ CosmosSDK and Tendermint are written in Go, so librairies used for cryptography 
 
 ---
 
-### Dependency on cryptography librairies II
+### Dependency on cryptography libraries II
 
-- Don’t Roll Your Own Crypto, particulary on a controversial elliptic curve.
+- Don’t Roll Your Own Crypto, particularly on a controversial elliptic curve.
 - Writing cryptography software isn’t like writing regular software. Crypto is Hard.
 - All the security of user accounts in Cosmos depend on a secp256k1 Go module written by the [decred project](https://github.com/decred/dcrd/tree/master/dcrec/secp256k1) from scratch (with their own maths).
 - Yes a module in a project, not a library!!!
@@ -174,7 +174,7 @@ The Cosmos Hub HD path is:
   let addr = SHA265(pub_key)[0..20];
   ```
 
-For user facing representation/interaction, addresses are formated using [Bech32](https://en.bitcoin.it/wiki/Bech32) with a prefix which depend on the type of the address:
+For user facing representation/interaction, addresses are formatted using [Bech32](https://en.bitcoin.it/wiki/Bech32) with a prefix which depend on the type of the address:
 
 - account addresses are prefixed with `cosmos`
 - validator operator addresses are prefixed with `cosmosvaloper`
@@ -210,6 +210,8 @@ Merkle trees are used throughout Tendermint to compute a cryptographic digest of
 - leaf nodes and inner nodes have different hashes. This is for "second pre-image resistance", to prevent the proof to an inner node being valid as the proof of a leaf. The leaf nodes are SHA256(0x00 || leaf_data), and inner nodes are SHA256(0x01 || left_hash || right_hash). `||` means concatenation.
 
 - When the number of items isn't a power of two, the left half of the tree is as big as it could be. (The largest power of two less than the number of items) This allows new leaves to be added with less recomputation.
+
+---
 
 To compute a Merkle proof, the number of aunts is limited to 100 (MaxAunts) to protect the node against DOS attacks. This limits the tree size to 2^100 leaves. In Cosmos aunts are hashes from leaf's sibling to a root's child.
 https://github.com/tendermint/tendermint/blob/master/crypto/merkle/proof.go
@@ -289,6 +291,8 @@ Cons:
 - while IAVL+ trees provide a deterministic merkle root hash, it depends on the order of transactions.
 - slow and inefficient
 
+---
+
 ### What did we learn from Cosmos's cryptography
 
 - They follow a lot of good conventions and specifications which are from Bitcoin era and are still valid and used today.
@@ -297,4 +301,4 @@ Cons:
 - The spec256k1 library they used is coming from a project which is not so reputable in cryptography development.
 - While Bitcoin used spec256k1 in 2009, one could expect Cosmos to use a less controversial elliptic curve (NSA backdoor).
 - Would like to see a better data structures for storing application's state like Sparse Merkle Tree (expected Q1 2023), MMR in the CosmosSDK
-- Different Elliptic curves, digital signature algorithms, addresse types are used on application side and consensus side. It adds complexity.
+- Different Elliptic curves, digital signature algorithms, address types are used on application side and consensus side. It adds complexity.

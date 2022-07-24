@@ -21,7 +21,6 @@
 - Tendermint passes transactions to the application through an interface called the ABCI (Application Blockchain Interface).
 - The state is updated by the application based on the messages received from Tendermint core.
 
-
 ---
 
 ## State Transition Function
@@ -180,12 +179,13 @@ Transactions are meaningless to the Tendermint. It is only interpreted by the ap
 ---
 
 ## Things we like
-- Instant finality of the blockchain. There cannot be forks of the chain.
+
+- Instant finality means there cannot be forks on the chain.
 - The ABCI interface is well defined and simple.
 
 ---
 
 ## Things we would like to improve
 
-- The instant finality means the block authoring and block finality is coupled. Time complexity of block authoring is O(n) while block finality is O(log n). The coupling means that block authoring is going to be throttled by the block finality.
-- The consensus algorithm is deterministic. A random algorithm is preferably.  
+- The instant finality means that block authoring and block finality are coupled. Time complexity of block authoring is O(n) while block finality is O(n^2). The coupling means that block authoring is going to be throttled by the block finality.
+- The consensus algorithm is deterministic. A random algorithm is preferable.

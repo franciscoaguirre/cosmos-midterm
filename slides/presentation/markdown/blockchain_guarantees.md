@@ -57,9 +57,9 @@ Definition:
 
 ---
 
-#### Tendermint’s Reward Mechanism
+### Tendermint’s Reward Mechanism
 
-Tendermint’s reward mechanism works as follows:
+Tendermint's reward mechanism works as follows:
 
 - Once a new block is decided for height H, processes wait for _TimeOutCommit_ time to collect
 the decision from the other validators for H, and put them in their set _toReward_.
@@ -72,7 +72,7 @@ Repercussion: The reward mechanism of Tendermint is not eventually fair.
 
 ---
 
-#### Tendermint’s Reward Mechanism (Cont'd)
+### Tendermint’s Reward Mechanism (Cont'd)
 
 Tendermint’s reward mechanism can be made to be at least eventually fair
 if the _TimeOutCommit_ is increased for each round until it catches up the message delay.
@@ -82,7 +82,7 @@ messages, Tendermint’s reward mechanism with modulable timeouts is eventually 
 
 ---
 
-#### Tendermint’s Reward Mechanism (Cont'd)
+### Tendermint’s Reward Mechanism (Cont'd)
 
 Changes to the reward mechanism in Tendermint to make it eventually fair:
 
@@ -97,7 +97,7 @@ of the time-out, it increases the time-out for the next height.
 
 ---
 
-#### Tendermint’s Reward Mechanism (Cont'd)
+### Tendermint’s Reward Mechanism (Cont'd)
 
 - During the consensus at height H, let us assume that pi proposes the block that will get
 decided in the consensus. pi gives the reward to the processes in its _toReward_.
@@ -110,7 +110,7 @@ eventually fair.
 
 ---
 
-#### Tendermint’s Reward Mechanism (Conclusion)
+### Tendermint’s Reward Mechanism (Conclusion)
 
 There exists a reward mechanism in repeated-consensus blockchains that is (eventually) fair if and only if the system communication is (eventually) synchronous. Specifically for Tendermint if the protocol evolves in an eventual synchronous
 setting, it is not eventually fair. However, it becomes eventually fair when timeouts are carefully

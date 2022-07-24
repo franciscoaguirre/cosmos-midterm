@@ -14,13 +14,6 @@
 
 ---
 
-## Topics
-
-- Validator Selection
-- On-Chain Governance
-
----
-
 ## Proof Of Stake
 - Cosmos uses delegated proof of stake consensus mechanism.
 - Form of representative Democracy.
@@ -129,7 +122,7 @@
 - If delegators don't vote, the corresponding validators inherit their voting power.
 ---
 ## Concerns
-- Few of the biggest validators (centralised exchanges like binance, kraken) never participate in voting.
+- Few of the biggest validators (centralized exchanges like binance, kraken) never participate in voting.
 - No Fast track governance. All proposals are treated in the same bucket.
 - Deposit burning when quorum is not reached discourage genuine users from proposing. 
 <!-- https://hub.cosmos.network/main/governance/process.html -->
