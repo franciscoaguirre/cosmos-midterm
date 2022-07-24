@@ -10,10 +10,10 @@ Elliptic Curve Cryptography protocol is used in Cosmos SDK.
 
 Cosmos SDK provides 3 digital signature algorithms for creating digital signatures:
 
-- secp256k1: use by accounts
-- secp256r1: use by accounts
+- ECDSA on secp256k1: use by accounts
+- ECDSA on secp256r1: use by accounts
   (for supporting signing algorithm on secure enclave in macOS/iOS/watchOS and Android Hardware-backed Keystore)
-- Ed25519: Only used for Consensus validation on Tendermint side
+- EdDSA on Ed25519: Only used for Consensus validation on Tendermint side
 
 We can see that user accounts and consensus validator accounts don't use the same digital signature algorithm.
 
@@ -58,7 +58,7 @@ Multisig transactions are a built-in feature in the Cosmos SDK.
 
 ### Cryptographic hash function
 
-The cryptographic hash function used in Cosmos is _SHA-256_.
+The cryptographic hash function used in Cosmos is SHA-256.
 
 It is used everywhere a hash function is needed:
 
@@ -118,7 +118,7 @@ At the core of every Cosmos account, there is a seed, which takes the form of a 
 
 Cosmos use hard derivation for deriving multiple cryptographic keypairs from a single secret following [BIP32](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki), [BIP39](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki), [BIP43](https://github.com/bitcoin/bips/blob/master/bip-0043.mediawiki) and [BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) specifications and principally the [confio specifications](https://github.com/confio/cosmos-hd-key-derivation-spec) for HD key derivation standarization on the Cosmos ecosystem.
 
-An "HD path" is an instruction as to how to derive a keypair from a root secret. BIP44 specifies a schema for such paths as follows:
+An "HD path" is an instruction as to how to derive a keypair from a root secret. [BIP44](https://github.com/bitcoin/bips/blob/master/bip-0044.mediawiki) specifies a schema for such paths as follows:
 
 `m / 44' / coin_type' / account' / change / address_index`
 
@@ -178,11 +178,15 @@ For user facing representation/interaction, addresses are formated using [Bech32
 
 ### Data structures
 
-- merkle tree
-- IAVL+ Tree
+Cosmos Applications and Tendermint uses a lot of data structures for storing important data:
+Block, Transaction, Vote, Events, Application's state.
+The notable one are tree-like data structure:
+
+- Simple Merkle tree: used for storing transaction hashs. The Merkle root is stored in the block header.
+- IAVL+ Tree: key-value pair based storage for the application's state.
 
 Because Tendermint only uses a Simple Merkle Tree, application developers are expect to use their own Merkle tree in their applications.
-For example, the IAVL+ Tree - an immutable self-balancing binary tree for persisting application state is defined in the [Cosmos SDK](https://github.com/cosmos/cosmos-sdk/blob/ae77f0080a724b159233bd9b289b2e91c0de21b5/docs/interfaces/lite/specification.md)
+For example, the IAVL+ Tree is an immutable self-balancing binary tree for persisting application state is defined in the [Cosmos SDK](https://github.com/cosmos/cosmos-sdk/blob/ae77f0080a724b159233bd9b289b2e91c0de21b5/docs/interfaces/lite/specification.md).
 
 ---
 
@@ -190,7 +194,7 @@ For example, the IAVL+ Tree - an immutable self-balancing binary tree for persis
 
 #### Merkle tree
 
-Tendermint uses RFC 6962 specification of a merkle tree, with sha256 as the hash function.
+Tendermint uses RFC 6962 specification of a merkle tree, with SHA-256 as the hash function.
 Merkle trees are used throughout Tendermint to compute a cryptographic digest of a data structure.
 
 2 Particularities for RFC 6962 compliant merkle trees:
@@ -199,7 +203,8 @@ Merkle trees are used throughout Tendermint to compute a cryptographic digest of
 
 - When the number of items isn't a power of two, the left half of the tree is as big as it could be. (The largest power of two less than the number of items) This allows new leaves to be added with less recomputation.
 
-To compute a Merkle proof, the number of aunts is limited to 100 (MaxAunts) to protect the node against DOS attacks. This limits the tree size to 2^100 leaves.
+To compute a Merkle proof, the number of aunts is limited to 100 (MaxAunts) to protect the node against DOS attacks. This limits the tree size to 2^100 leaves. In Cosmos aunts are hashes from leaf's sibling to a root's child.
+https://github.com/tendermint/tendermint/blob/master/crypto/merkle/proof.go
 
 ---
 
@@ -262,8 +267,6 @@ h0  h1  h2  h3  h4  h5
 
 #### IAVL+ Tree
 
-https://github.com/cosmos/iavl/blob/master/README.md
-
 The purpose of this data structure is to provide persistent storage for key-value pairs, for example store account balances.
 
 In Ethereum, the analog is Patricia tries.
@@ -279,19 +282,14 @@ Cons:
 
 ---
 
-### Conclusion
+### What did we learn from Cosmos's cryptography
 
-#### TODO
-
-Good:
-
-- They follow a lot of good specification and convention which are from bitcoin era and are still valid and over used today
-- a solid crypto on consensus side
-- Using good lib for hashing, encyphering and ed curve.
-
-Bad:
-
-- Use a more known library for spec256k1 or even better change the DSA. Since post Snowden revelation era we should be carefull with everything coming from the NSA.
+- They follow a lot of good conventions and specifications which are from Bitcoin era and are still valid and used today.
+- Reliable cryptography on consensus side
+- Usage of good cryptography libraries for hashing, encryption and Ed25519.
+- The spec256k1 library they used is coming from a project which is not so reputable in cryptography development.
+- While Bitcoin used spec256k1 in 2009, one could expect Cosmos to use a less controversial elliptic curve.
 - better tree data structure like sparse merkle tree
   https://docs.cosmos.network/master/architecture/adr-040-storage-and-smt-state-commitments.html
-- Different DSA on application and consensus make thing harder to follow and different addresses types.
+- Different Elliptic curves used on application side and consensus side add complexity:
+  - Different curves, addresses format
