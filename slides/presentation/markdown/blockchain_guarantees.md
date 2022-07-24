@@ -92,6 +92,12 @@ toReward.
 
 - If a process did not get the commits from all the validators for that height before the expiration
 of the time-out, it increases the time-out for the next height.
+    - To prevent time-out from increasing indefinitely due to an unresponsive validator, the scheme does the following: 
+    From the time t, at height H all correct processes know the exact set of validators that committed the block from H − 1, and from those commit messages, they can exclude the set of processes that did not participate to the consensus
+
+---
+
+#### Tendermint’s Reward Mechanism (Cont'd)
 
 - During the consensus at height H, let us assume that pi proposes the block that will get
 decided in the consensus. pi gives the reward to the processes in its _toReward_.
